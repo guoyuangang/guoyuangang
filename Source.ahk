@@ -13,7 +13,7 @@ setAppKey(Key,App)
     return
 }
 
-^+f:: setAppKey(1,explorer.exe)     return
+^+o:: setAppKey(1,explorer.exe)     return
 ^+v:: setAppKey(2,Code.exe)         return
 ^+g:: setAppKey(3,mintty.exe)       return
 ^+x:: setAppKey(4,Xshell.exe)       return
