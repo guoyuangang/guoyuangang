@@ -2,7 +2,10 @@ openExe(exeName)
 {
     exeNameAhk := "ahk_exe " . exeName
     if WinExist(exeNameAhk)
-        WinActivate, %exeNameAhk%
+        if WinActive(exeNameAhk)
+            WinMinimize
+        else
+            WinActivate, %exeNameAhk%
     else
         Run, %exeName%
 }
