@@ -1,23 +1,17 @@
-setAppKey(Key,App)
+openExe(exeName)
 {
-    Process, Exist, %App%
-    PID = %ErrorLevel%
-    if PID = 0 
-    {
-        Run %App%
-    }
+    winExeName := "ahk_exe " . exeName
+    if WinExist(winExeName)
+        WinActivate, %winExeName%
     else
-    {
-        Send #%Key%
-    }
-    return
+        Run, %exeName%
 }
 
-^+o:: setAppKey(1,explorer.exe)     return
-^+v:: setAppKey(2,Code.exe)         return
-^+g:: setAppKey(3,mintty.exe)       return
-^+x:: setAppKey(4,Xshell.exe)       return
-^+n:: setAppKey(6,navicat.exe)      return
-^+p:: setAppKey(8,phpstorm64.exe)   return
-^+m:: setAppKey(9,Postman.exe)      return
-^+l:: setAppKey(0,phpstorm64.exe)   return
+^+o:: openExe("explorer.exe")   return
+^+v:: openExe("Code.exe")       return
+^+g:: openExe("mintty.exe")     return
+^+x:: openExe("Xshell.exe")     return
+^+n:: openExe("navicat.exe")    return
+^+p:: openExe("phpstorm64.exe") return
+^+m:: openExe("Postman.exe")    return
+^+l:: openExe("msedge.exe")     return
