@@ -10,15 +10,15 @@ openExe(exeName)
         Run, %exeName%
 }
 
-+e:: Send #e                   return
-+v:: openExe("Code.exe")       return
-+m:: openExe("mintty.exe")     return
-+x:: openExe("Xshell.exe")     return
-+r:: openExe("Another Redis Desktop Manager.exe")     return
-+n:: openExe("navicat.exe")    return
-+p:: openExe("phpstorm64.exe") return
-+o:: openExe("Postman.exe")    return
-+i:: openExe("msedge.exe")     return
-+d:: openExe("TickTick.exe")   return
-+k:: openExe("KuGou.exe")      return
-+l:: openExe("Kindle.exe")     return
++e:: Send #e
++v:: openExe("Code.exe")
++m:: openExe("mintty.exe")
++x:: openExe("Xshell.exe")
++r:: openExe("Another Redis Desktop Manager.exe")
++n:: openExe("navicat.exe")
++p:: openExe("phpstorm64.exe")
++o:: openExe("Postman.exe")
++i:: openExe("msedge.exe")
++d:: openExe("TickTick.exe")
++k:: openExe("KuGou.exe")
++l:: openExe("Kindle.exe")
