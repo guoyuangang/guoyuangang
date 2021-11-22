@@ -2,7 +2,7 @@ SetWorkingDir, C:\ProgramFiles\MyPath
 
 openExe(exeName)
 {
-    exeNameAhk := "ahk_exe " . exeName
+    exeNameAhk := "ahk_exe " . exeName . ".exe"
     if WinExist(exeNameAhk)
         if WinActive(exeNameAhk)
             WinMinimize
@@ -13,15 +13,15 @@ openExe(exeName)
 }
 
 Capslock & e:: Send #e
-Capslock & v:: openExe("Code.exe")
-Capslock & m:: openExe("mintty.exe")
-Capslock & x:: openExe("Xshell.exe")
-Capslock & r:: openExe("Another Redis Desktop Manager.exe")
-Capslock & n:: openExe("navicat.exe")
-Capslock & g:: openExe("goland64.exe")
-Capslock & p:: openExe("phpstorm64.exe")
-Capslock & o:: openExe("Postman.exe")
-Capslock & i:: openExe("msedge.exe")
-Capslock & d:: openExe("TickTick.exe")
-Capslock & k:: openExe("KuGou.exe")
-Capslock & l:: openExe("Kindle.exe")
+Capslock & v:: openExe("Code")
+Capslock & m:: openExe("mintty")
+Capslock & x:: openExe("Xshell")
+Capslock & r:: openExe("Another Redis Desktop Manager")
+Capslock & n:: openExe("navicat")
+Capslock & g:: openExe("goland64")
+Capslock & p:: openExe("phpstorm64")
+Capslock & o:: openExe("Postman")
+Capslock & i:: openExe("msedge")
+Capslock & d:: openExe("TickTick")
+Capslock & k:: openExe("KuGou")
+Capslock & l:: openExe("Kindle")
