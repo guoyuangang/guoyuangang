@@ -1,3 +1,5 @@
+SetWorkingDir, C:\ProgramFiles\MyPath
+
 openExe(exeName)
 {
     exeNameAhk := "ahk_exe " . exeName
@@ -16,6 +18,7 @@ Capslock & m:: openExe("mintty.exe")
 Capslock & x:: openExe("Xshell.exe")
 Capslock & r:: openExe("Another Redis Desktop Manager.exe")
 Capslock & n:: openExe("navicat.exe")
+Capslock & g:: openExe("goland64.exe")
 Capslock & p:: openExe("phpstorm64.exe")
 Capslock & o:: openExe("Postman.exe")
 Capslock & i:: openExe("msedge.exe")
