@@ -11,3 +11,4 @@
 # fi
 #
 alias ll='ls -al'                              # long list
+alias vi=vim
