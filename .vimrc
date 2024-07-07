@@ -77,18 +77,8 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup nowb noswapfile
-
-" Use spaces instead of tabs
+set encoding=utf8 ffs=unix,dos,mac nobackup nowb noswapfile
 set expandtab smarttab shiftwidth=4 tabstop=4 ai si
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8 ffs=unix,dos,mac
 
 
 """"""""""""""""""""""""""""""
@@ -119,6 +109,7 @@ function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -126,17 +117,10 @@ endfunction
 map <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <leader>wj <C-W>j
-map <leader>wk <C-W>k
-map <leader>wh <C-W>h
-map <leader>wl <C-W>l
+map <leader>wh <C-W>h; map <leader>wj <C-W>j; map <leader>wk <C-W>k; map <leader>wl <C-W>l
 
 " Useful mappings for managing tabs
-map <leader>th :tabprevious<cr>
-map <leader>tk :tabonly<cr>
-map <leader>tj :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>tl :tabnext<cr>
+map <leader>th :tabprevious<cr>; map <leader>tj :tabclose<cr>; map <leader>tk :tabonly<cr>; map <leader>tl :tabnext<cr>; map <leader>tm :tabmove
 
 
 " Opens a new tab with the current buffer's path
