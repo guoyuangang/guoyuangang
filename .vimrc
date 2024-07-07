@@ -2,8 +2,7 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+filetype plugin on; filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -40,7 +39,7 @@ else
 endif
 
 " Always show current position
-set ruler
+set ruler, number, nowrap
 
 " Height of the command bar
 set cmdheight=1
@@ -53,16 +52,10 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
+set ignorecase, smartcase
 
 " Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
+set hlsearch, incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -71,18 +64,10 @@ set lazyredraw
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
+set showmatch, mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=    " 启用可视响铃功能
-
-" Add a bit extra margin to the left
-set number
+set noerrorbells, novisualbell, t_vb=    " 启用可视响铃功能
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -110,27 +95,20 @@ set ffs=unix,dos,mac
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup
-set nowb
-set noswapfile
+set nobackup, nowb, noswapfile
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
+set expandtab, smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=4, tabstop=4
 
-set ai "Auto indent
-set si "Smart indent
-set nowrap "Wrap lines
+"Auto indent
+set ai, si
 
 
 """"""""""""""""""""""""""""""
@@ -160,9 +138,6 @@ endfunction
 function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
-
-" Cancel highlight when <leader><cr> is pressed
-map <leader><nl> :noh<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -224,10 +199,8 @@ endfunction
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <C-S-j> mz:m+<cr>`z
-nmap <C-S-k> mz:m-2<cr>`z
-vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z
+nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
