@@ -1,16 +1,17 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = "\<space>"
+
 " Enable filetype plugins
-filetype plugin on; filetype indent on
+filetype plugin on
+filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * silent! checktime
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = "\<space>"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -24,8 +25,6 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 5 lines to the cursor - when moving vertically using j/k
-set so=5
 
 " Turn on the Wild menu
 set wildmenu
@@ -39,10 +38,7 @@ else
 endif
 
 " Always show current position
-set ruler, number, nowrap
-
-" Height of the command bar
-set cmdheight=1
+set ruler number nowrap cmdheight=1 so=5
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -51,11 +47,8 @@ set hid
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase, smartcase
-
-" Highlight search results
-set hlsearch, incsearch
+" Highlight search results Ignore case when searching
+set hlsearch incsearch ignorecase smartcase
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -64,10 +57,10 @@ set lazyredraw
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch, mat=2
+set showmatch mat=2
 
 " No annoying sound on errors
-set noerrorbells, novisualbell, t_vb=    " 启用可视响铃功能
+set noerrorbells novisualbell t_vb=    " 启用可视响铃功能
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -84,31 +77,18 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup, nowb, noswapfile
+set nobackup nowb noswapfile
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-set expandtab, smarttab
+set expandtab smarttab shiftwidth=4 tabstop=4 ai si
 
-" 1 tab == 4 spaces
-set shiftwidth=4, tabstop=4
-
-"Auto indent
-set ai, si
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8 ffs=unix,dos,mac
 
 
 """"""""""""""""""""""""""""""
@@ -167,8 +147,7 @@ map <leader>tn :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
-set switchbuf=newtab
-set stal=2
+set switchbuf=newtab stal=2
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -177,11 +156,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+set laststatus=2 statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " Returns true if paste mode is enabled
 function! HasPaste()
