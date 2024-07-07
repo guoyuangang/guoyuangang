@@ -156,6 +156,10 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction
+
 " Cancel highlight when <leader><cr> is pressed
 map <leader><nl> :noh<cr>
 
@@ -166,10 +170,11 @@ map <leader><nl> :noh<cr>
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <leader>wj <C-W>j
+map <leader>wk <C-W>k
+map <leader>wh <C-W>h
+map <leader>wl <C-W>l
+
 " Useful mappings for managing tabs
 map <leader>th :tabprevious<cr>
 map <leader>tk :tabonly<cr>
@@ -295,8 +300,4 @@ function! <SID>BufcloseCloseIt()
     if buflisted(l:currentBufNum)
         execute("bdelete! ".l:currentBufNum)
     endif
-endfunction
-
-function! CmdLine(str)
-    call feedkeys(":" . a:str)
 endfunction
