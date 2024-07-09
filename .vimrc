@@ -1,45 +1,34 @@
 let mapleader = "\<space>"
-" 文件
-filetype plugin on  " Enable filetype plugins
-filetype indent on  " Enable filetype plugins
+""""""""""""""""""""""""""""FILE""""""""""""""""""""""""""""
+set nobackup noswapfile nowb
+set encoding=utf8 ffs=unix,dos,mac t_Co=256
+set autoread                                    " 自动加载外部修改（该文件未被修改的情况下）
 au FocusGained,BufEnter * silent! checktime     " 提示文件已经被修改
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif        " 打开时将光标移动到上次修改的地方
-set autoread                                    " 自动加载外部修改（该文件未被修改的情况下）
-set encoding=utf8 ffs=unix,dos,mac 
-set nobackup nowb noswapfile
 map <leader>cd :cd %:p:h<cr>:pwd<cr>            " 查看当前文件路径
 nmap <leader>w :w!<cr>
 nmap <leader>q :qa!<cr>
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!  " :W sudo saves the file
-" 编辑
-set wildignore=*/.git/*,*.o,*~,*.pyc
-set backspace=eol,start,indent                  " 允许删除换行和缩进
-set expandtab smarttab shiftwidth=4 tabstop=4 ai si     " 智能缩进
-nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z                     " 向下移动一行
-nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z                   " 向上移动一行
-map <F7> :setlocal spell!<cr>               " 拼写检查开关
-" 选择
+""""""""""""""""""""""""""""EDIT""""""""""""""""""""""""""""
+filetype plugin on                              " 文件类型检测插件
+filetype indent on                              " 文件类型自动缩进
+set expandtab smarttab shiftwidth=4 tabstop=4   " 智能缩进
+set backspace=eol,start,indent  ai si           " 允许删除换行和缩进
+set showmatch mat=2 mouse=a                     " 高亮成对的符号
 set hlsearch incsearch ignorecase smartcase     " 搜索时，忽略大小写、高亮匹配项
 map <leader><cr> :noh<cr>                       " 取消搜索高亮
-set showmatch mat=2                             " 高亮成对的符号
-" 外观
+map <F7> :setlocal spell!<cr>                   " 拼写检查开关
+nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z     " 向下移动一行
+nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z   " 向上移动一行
+""""""""""""""""""""""""""""LAYOUT""""""""""""""""""""""""""""
 syntax enable                                   " 语法高亮开关
-set ruler number nowrap cmdheight=1 scrolloff=5 " 滚动时，保持光标上下至少有5行
-set noerrorbells novisualbell t_vb=             " 启用可视响铃功能
-map <leader>wh <C-W>h; map <leader>wj <C-W>j; map <leader>wk <C-W>k; map <leader>wl <C-W>l                  " 窗口移动
-map <leader>th :tabprevious<cr>; map <leader>tl :tabnext<cr>;map <leader>tn : map <leader>tm :tabmove       " Tab标签移动
-tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/; map <leader>tk :tabonly<cr>; map <leader>tj :tabclose<cr>; " Tab标签编辑
-set laststatus=2 statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c      " 状态栏格式
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-" 其它
-set hid " A buffer becomes hidden when it is abandoned
-set whichwrap+=<,>,h,l
-set regexpengine=0
+set showmode showcmd cmdheight=1                " 滚动时，保持光标上下至少有5行
+set number nowrap scrolloff=5 sidescrolloff=15 
+map <leader>th :tabprevious<cr>; map <leader>tl :tabnext<cr>; map <leader>tm :tabmove                                           " Tab标签移动
+map <leader>tn :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/; map <leader>tj :tabclose<cr>; map <leader>tk :tabonly<cr>;     " Tab标签编辑
+map <leader>wh <C-W>h; map <leader>wj <C-W>j; map <leader>wk <C-W>k; map <leader>wl <C-W>l                                      " 窗口移动
+set laststatus=2 statusline=\ \ %{mode()}\ \ %m%f\ \ %{getcwd()}\ \ %=\ \ %{&enc}\ \ Column:%c\ \ Line:%l/%L\ \                 " 状态栏格式
+""""""""""""""""""""""""""""OTHER""""""""""""""""""""""""""""
 " 可视模式下，*、#搜索选中字符串
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
