@@ -1,91 +1,29 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
 let mapleader = "\<space>"
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-au FocusGained,BufEnter * silent! checktime
-
-" Fast saving
+" 文件
+filetype plugin on  " Enable filetype plugins
+filetype indent on  " Enable filetype plugins
 nmap <leader>w :w!<cr>
 nmap <leader>q :qa!<cr>
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Turn on the Wild menu
+set autoread
+au FocusGained,BufEnter * silent! checktime
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!  " :W sudo saves the file
+" 编辑
 set wildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-" Always show current position
-set ruler number nowrap cmdheight=1 so=5
-
-" A buffer becomes hidden when it is abandoned
-set hid
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+set wildignore=*/.git/*,*.o,*~,*.pyc
+set ruler number nowrap cmdheight=1 scrolloff=5 " Always show current position
+set hid " A buffer becomes hidden when it is abandoned
+set backspace=eol,start,indent                  " 允许删除换行和缩进
 set whichwrap+=<,>,h,l
-
-" Highlight search results Ignore case when searching
-set hlsearch incsearch ignorecase smartcase
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch mat=2
-
-" No annoying sound on errors
-set noerrorbells novisualbell t_vb=    " 启用可视响铃功能
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
+set hlsearch incsearch ignorecase smartcase     " 搜索时，忽略大小写、高亮匹配项
+map <leader><cr> :noh<cr>                       " 取消搜索高亮
+set showmatch mat=2                             " 高亮成对的符号
+set noerrorbells novisualbell t_vb=             " 启用可视响铃功能
 syntax enable
-
-" Set regular expression engine automatically
 set regexpengine=0
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
 set encoding=utf8 ffs=unix,dos,mac nobackup nowb noswapfile
-set expandtab smarttab shiftwidth=4 tabstop=4 ai si
-
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
+set expandtab smarttab shiftwidth=4 tabstop=4 ai si     " 智能缩进
+" 可视模式下，*、#搜索选中字符串
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 function! VisualSelection(direction, extra_filter) range
@@ -104,70 +42,28 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
 function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Disable highlight when <leader><cr> is pressed
-map <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <leader>wh <C-W>h; map <leader>wj <C-W>j; map <leader>wk <C-W>k; map <leader>wl <C-W>l
-
-" Useful mappings for managing tabs
-map <leader>th :tabprevious<cr>; map <leader>tj :tabclose<cr>; map <leader>tk :tabonly<cr>; map <leader>tl :tabnext<cr>; map <leader>tm :tabmove
-
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>tn :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <leader>wh <C-W>h; map <leader>wj <C-W>j; map <leader>wk <C-W>k; map <leader>wl <C-W>l                          " 窗口相关操作
+map <leader>th :tabprevious<cr>; map <leader>tj :tabclose<cr>; map <leader>tk :tabonly<cr>; map <leader>tl :tabnext<cr>;map <leader>tn :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/; map <leader>tm :tabmove     " Tab标签相关操作
+map <leader>cd :cd %:p:h<cr>:pwd<cr>        " 查看当前文件路径
 
 " Specify the behavior when switching between buffers
 set switchbuf=newtab stal=2
 
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Format the status line
-set laststatus=2 statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-" Returns true if paste mode is enabled
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif   " 打开时将光标移动到上次修改的地方
+set laststatus=2 statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c      " 状态栏格式
 function! HasPaste()
     if &paste
         return 'PASTE MODE  '
     endif
     return ''
 endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z
-nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z                     " 向下移动一行
+nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z                   " 向上移动一行
+map <F7> :setlocal spell!<cr>               " 拼写检查开关
 
 " Shortcuts using <leader>
 map <leader>sn ]s
