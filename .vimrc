@@ -1,22 +1,21 @@
 let mapleader = "\<space>"
 """"""""""""""""""""""""""""""""""""""""""""""""FILE""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on                                                                      " 文件类型检测插件
-filetype indent on                                                                      " 文件类型自动缩进
-set nobackup noswapfile nowb autoread                                                   " 不创建备份文件
-set encoding=utf8 ffs=unix,dos,mac t_Co=256                                             " 默认文件格式
+filetype plugin on                                                                      " 类型检测
+filetype indent on                                                                      " 自动缩进
+set nobackup noswapfile nowb autoread                                                   " 不备份
+set encoding=utf8 ffs=unix,dos,mac t_Co=256                                             " 默认格式
 set mouse=a selection=exclusive selectmode=mouse,key                                    " 鼠标模式
 set switchbuf=newtab stal=2                                                             " 用标签打开
-map <leader>cd :cd %:p:h<cr>:pwd<cr>                                                    " 查看当前文件路径
 nmap <leader>w :w!<cr>                                                                  " 保存
 nmap <leader>q :qa!<cr>                                                                 " 退出
 """"""""""""""""""""""""""""""""""""""""""""""""EDIT""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable                                                                           " 语法高亮开关
-set showmatch mat=2                                                                     " 高亮成对的符号
-set hlsearch incsearch ignorecase smartcase                                             " 搜索时，高亮匹配项
-map <F7> :setlocal spell!<cr>                                                           " 拼写检查开关
-map <leader><cr> :noh<cr>                                                               " 取消搜索高亮
+map <F7> :setlocal spell!<cr>                                                           " 拼写检查
+syntax enable                                                                           " 语法高亮
+set showmatch mat=2                                                                     " 符号高亮
+set hlsearch incsearch ignorecase smartcase                                             " 搜索高亮
+map <leader><cr> :noh<cr>                                                               " 取消高亮
 set expandtab smarttab shiftwidth=4 tabstop=4 ai si                                     " 智能缩进
-set backspace=eol,start,indent clipboard=unnamedplus                                    " 允许删除换行和缩进
+set backspace=eol,start,indent clipboard=unnamedplus                                    " 允许删除换行
 nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z                         " 向下移动一行
 nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z                       " 向上移动一行
 """"""""""""""""""""""""""""""""""""""""""""""""LAYOUT"""""""""""""""""""""""""""""""""""""""""""""""
