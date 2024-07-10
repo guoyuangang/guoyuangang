@@ -3,6 +3,7 @@ let mapleader = "\<space>"
 set nobackup noswapfile nowb
 set encoding=utf8 ffs=unix,dos,mac t_Co=256
 set autoread mouse=a selection=exclusive selectmode=mouse,key                                       " 自动加载外部修改（该文件未被修改的情况下）
+set switchbuf=newtab stal=2
 au FocusGained,BufEnter * silent! checktime     " 提示文件已经被修改
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif        " 打开时将光标移动到上次修改的地方
 map <leader>cd :cd %:p:h<cr>:pwd<cr>            " 查看当前文件路径
@@ -50,50 +51,4 @@ function! VisualSelection(direction, extra_filter) range
 endfunction
 function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction
-
-" Specify the behavior when switching between buffers
-set switchbuf=newtab stal=2
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
 endfunction
