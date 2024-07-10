@@ -2,7 +2,7 @@ let mapleader = "\<space>"
 """"""""""""""""""""""""""""FILE""""""""""""""""""""""""""""
 set nobackup noswapfile nowb
 set encoding=utf8 ffs=unix,dos,mac t_Co=256
-set autoread                                    " 自动加载外部修改（该文件未被修改的情况下）
+set autoread mouse=a selection=exclusive selectmode=mouse,key                                       " 自动加载外部修改（该文件未被修改的情况下）
 au FocusGained,BufEnter * silent! checktime     " 提示文件已经被修改
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif        " 打开时将光标移动到上次修改的地方
 map <leader>cd :cd %:p:h<cr>:pwd<cr>            " 查看当前文件路径
@@ -14,7 +14,7 @@ filetype plugin on                              " 文件类型检测插件
 filetype indent on                              " 文件类型自动缩进
 set expandtab smarttab shiftwidth=4 tabstop=4   " 智能缩进
 set backspace=eol,start,indent  ai si           " 允许删除换行和缩进
-set showmatch mat=2 mouse=a                     " 高亮成对的符号
+set showmatch mat=2                             " 高亮成对的符号
 set hlsearch incsearch ignorecase smartcase     " 搜索时，忽略大小写、高亮匹配项
 map <leader><cr> :noh<cr>                       " 取消搜索高亮
 map <F7> :setlocal spell!<cr>                   " 拼写检查开关
