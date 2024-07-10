@@ -1,5 +1,7 @@
 let mapleader = "\<space>"
 """"""""""""""""""""""""""""""""""""""""""""""""FILE""""""""""""""""""""""""""""""""""""""""""""""""
+filetype plugin on                                                                      " 文件类型检测插件
+filetype indent on                                                                      " 文件类型自动缩进
 set nobackup noswapfile nowb autoread                                                   " 不创建备份文件
 set encoding=utf8 ffs=unix,dos,mac t_Co=256                                             " 默认文件格式
 set mouse=a selection=exclusive selectmode=mouse,key                                    " 鼠标模式
@@ -8,8 +10,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>                                            
 nmap <leader>w :w!<cr>                                                                  " 保存
 nmap <leader>q :qa!<cr>                                                                 " 退出
 """"""""""""""""""""""""""""""""""""""""""""""""EDIT""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on                                                                      " 文件类型检测插件
-filetype indent on                                                                      " 文件类型自动缩进
 syntax enable                                                                           " 语法高亮开关
 set showmatch mat=2                                                                     " 高亮成对的符号
 set hlsearch incsearch ignorecase smartcase                                             " 搜索时，高亮匹配项
