@@ -15,7 +15,7 @@ set showmatch mat=2                                                             
 set hlsearch incsearch ignorecase smartcase                                             " 搜索高亮
 map <leader><cr> :noh<cr>                                                               " 取消高亮
 set expandtab smarttab shiftwidth=4 tabstop=4 ai si                                     " 智能缩进
-set backspace=eol,start,indent clipboard=unnamedplus                                    " 允许删除换行
+set backspace=eol,start,indent                                                          " 允许删除换行
 nmap <C-S-j> mz:m+<cr>`z; vmap <C-S-j> :m'>+<cr>`<my`>mzgv`yo`z                         " 向下移动一行
 nmap <C-S-k> mz:m-2<cr>`z; vmap <C-S-k> :m'<-2<cr>`>my`<mzgv`yo`z                       " 向上移动一行
 """"""""""""""""""""""""""""""""""""""""""""""""LAYOUT"""""""""""""""""""""""""""""""""""""""""""""""
